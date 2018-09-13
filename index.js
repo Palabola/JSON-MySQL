@@ -92,18 +92,24 @@ class JSONtoMysql {
     {
        let field = {};
 
-       if(string.length>255)
+       // Not real string
+       if(this.string_isnumber(string))
        {
-         field.type = 'TEXT';
-         field.length = 0;  
-         field.default = "NOT NULL"
-       } 
-       else
-       {
-         field.type = 'VARCHAR';
-         field.length = 255;   
-         field.default = "NOT NULL"
+          return this.number_type(string);  
        }
+
+        if(string.length>255)
+        {
+            field.type = 'TEXT';
+            field.length = 0;  
+            field.default = "NOT NULL"
+        } 
+        else
+        {
+            field.type = 'VARCHAR';
+            field.length = 255;   
+            field.default = "NOT NULL"
+        }
 
        return field;  
     }
@@ -128,6 +134,23 @@ class JSONtoMysql {
         return field;
     }
 
+        string_isnumber(string)
+        {
+            if(!isNaN(string) && string.toString().indexOf('.') != -1)
+            {
+              return true;  
+            } 
+
+            if(!isNaN(string) && string.toString().indexOf('.') == -1)
+            {
+              return true;  
+            }
+            
+          return false;  
+        }
+
+
+
 
     isArray(what) {
         return Object.prototype.toString.call(what) === '[object Array]';
@@ -139,38 +162,5 @@ class JSONtoMysql {
 	}
 
 }
-    /*
-    explore() {
-        // If Json is array of JSON-s  
-          if(this.isArray(this.json))
-          {
-              for(let k=0; k < this.json.length;k++)
-              {
-                  for(var i in this.json[k]) 
-                          {                    
-                                  if(isArray(this.json[k][i])) 
-                                  {
-                                      throw "Multi Array JSON, serialize your JSON";
-                                  } 
-                                  else 
-                                  {
-                                      
-  
-                                  }
-                          }  
-              }
-          }
-    */
-    /*
-    let createTodos = `create table if not exists todos(
-        id int primary key auto_increment,
-        title varchar(255)not null,
-        completed tinyint(1) not null default 0
-    )`;
-    /*
-
-
-}
-*/
 
 module.exports = JSONtoMysql;
