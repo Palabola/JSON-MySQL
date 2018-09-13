@@ -59,6 +59,7 @@ typings/
 
 # next.js build output
 .next
-index.js
 Achievement_Category.json
 package-lock.json
+test.js
+json-mysql.js
