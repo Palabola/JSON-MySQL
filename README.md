@@ -7,7 +7,7 @@
 
 const json_mysql = require("json-mysql");
 
-let test_json = JSON.parse('{"name": "John Snow", "age": 35}');
+let test_json = JSON.parse('{"name": "Jon Snow", "age": 35}');
 
 let table_name = 'Actors';
 
